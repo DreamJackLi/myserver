@@ -1,0 +1,18 @@
+ALL:
+  port: 10002
+  servername : "ALL"
+  database: "robot"
+default :
+  mysql:
+    maxIdleConns: 700
+    maxOpenConns: 700
+    port: 3306
+    host: "10.10.4.21"
+    username: "root"
+    password: "root123456"
+    debug: true
+    database: "robot"
+  qiniu:
+    accessKey: "5bJMhEn4DSLNAJT-JiIw9rhmk8coOxMpVwGZoCRc"
+    bucket: "images"
+    secretKey: "mSDqSTWRySYhEatdMuGlNGKFQLhYD4Ue97XYiSD3"

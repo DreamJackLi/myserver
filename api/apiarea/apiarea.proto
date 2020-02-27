@@ -1,0 +1,113 @@
+syntax = "proto3" ;
+
+package apiarea;
+
+import "robot-server/api/base/base.proto";
+
+
+service Area{
+	// 获取省
+	rpc GetProvinces(Req) returns(Resp);
+	// 获取市
+	rpc GetCity(Req) returns(Resp);
+	// 获取县/区
+	rpc GetDistrict(Req) returns(Resp);
+	// 获取街道/镇
+	rpc GetStreet(Req) returns(Resp);
+	// 获取社区
+	rpc GetCommunity(Req) returns(Resp);
+}
+
+message Req {
+	base.Head head = 1;
+	// 所属国家id
+	int64 country_id = 2;
+	// 所属省id
+	int64 province_id = 3;
+	// 所属市id
+	int64 city_id = 4;
+	// 区县id
+	int64 district_id = 5;
+	// 街道id
+	int64 street_id = 6;
+}
+
+message Resp {
+	base.BaseRes base = 1;
+	repeated Province provinces = 2;
+	repeated City cites = 3;
+	repeated District districts = 4;
+	repeated Street streets = 5;
+	repeated Community communities = 6;
+}
+
+message Province{
+	// 主键
+	int64 id = 1;
+	// 中文名称
+	string chinese = 2;
+	// 英文名称
+	string english = 3;
+	// 所属国家id
+	int64 country_id = 4;
+	// 行政区划编码
+	string area_number = 5;
+}
+
+message City{
+	// 主键
+	int64 id = 1;
+	// 中文名称
+	string chinese = 2;
+	// 英文名称
+	string english = 3;
+	// 所属省id
+	int64 province_id = 4;
+	// 纬度
+	double lat = 5;
+	// 经度
+	double lng = 6;
+	// 行政区划编码
+	string area_number = 7;
+	// ?
+	string zip_code = 8;
+}
+
+message District{
+	// 主键
+	int64 id = 1;
+	// 中文名称
+	string chinese = 2;
+	// 英文名称
+	string english = 3;
+	// 所属市id
+	int64 city_id = 4;
+	// 纬度
+	double lat = 5;
+	// 经度
+	double lng = 6;
+	// 行政区划编码
+	string area_number = 7;
+	// ?
+	string zip_code = 8;
+}
+
+message Street{
+	// 主键
+	int64 id = 1;
+	// 区县id
+	int64 district_id = 2;
+	// 街道名称
+	string name = 3;
+}
+
+message Community{
+	// 主键
+	int64 id = 1;
+	// 街道id
+	int64 street_id = 2;
+	// 社区名称
+	string name = 3;
+}
+
+

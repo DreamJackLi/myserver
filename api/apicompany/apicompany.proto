@@ -1,0 +1,373 @@
+syntax = "proto3" ;
+
+package apicompany;
+
+import "robot-server/api/base/base.proto";
+
+
+service Company{
+	// 添加企业基本信息
+	rpc AddCompanyInfo(AddCompanyInfoReq) returns(AddCompanyInfoRes);
+	// 编辑企业基本信息
+	rpc UpdateCompanyInfo(UpdateCompanyInfoReq) returns(UpdateCompanyInfoRes);
+	// 获取公司基本信息
+	rpc GetCompanyInfo(GetCompanyInfoReq) returns(GetCompanyInfoRes);
+	// 添加企业防控信息
+	rpc AddPreventionRecord(AddPreventionRecordReq) returns(AddPreventionRecordRes);
+	// 编辑企业防控信息
+	rpc UpdatePreventionRecord(UpdatePreventionRecordReq) returns(UpdatePreventionRecordRes);
+	// 获取企业防控信息
+	rpc GetPreventionRecord(GetPreventionRecordReq) returns(GetPreventionRecordRes);
+	// 获取企业信息列表
+	rpc GetCompanyInfoList(GetCompanyInfoListReq) returns(GetCompanyInfoListRes);
+	// 删除企业基本信息
+	rpc DeleteCompanyInfo(DeleteCompanyInfoReq) returns(DeleteCompanyInfoRes);
+	// 获取企业防控信息列表
+	rpc GetPreventionRecordList(GetPreventionRecordListReq) returns (GetPreventionRecordListRes);
+}
+
+message AddCompanyInfoReq{
+	base.Head head = 1;
+	// 企业名称
+	string name = 2;
+	// 联系电话
+	string phone =3;
+	// 公司归属省
+	string province = 4;
+	// 公司归属省id
+	int64 province_id = 5;
+	// 公司归属市
+	string city = 6;
+	// 公司归属市id
+	int64 city_id = 7;
+	// 公司归属县/区
+	string district = 8;
+	// 公司归属县/区id
+	int64 district_id = 9;
+	// 公司归属街道
+	string street = 10;
+	// 公司归属街道id
+	int64 street_id = 11;
+	// 公司归属社区
+	string community = 12;
+	// 公司归属社区id
+	int64 community_id = 13;
+	// 详细地址
+	string detailed_address = 14;
+	// 行政区划代码
+	string adcode = 15;
+	// 企业编码
+	string identity = 16;
+	// 行业
+	string industry = 17;
+}
+
+message AddCompanyInfoRes{
+	base.BaseRes base = 1;
+	// 新增公司id
+	int64 id = 2;
+}
+
+message UpdateCompanyInfoReq{
+	base.Head head = 1;
+	// 企业名称
+	string name = 2;
+	// 联系电话
+	string phone =3;
+	// 公司归属省
+	string province = 4;
+	// 公司归属省id
+	int64 province_id = 5;
+	// 公司归属市
+	string city = 6;
+	// 公司归属市id
+	int64 city_id = 7;
+	// 公司归属县/区
+	string district = 8;
+	// 公司归属县/区id
+	int64 district_id = 9;
+	// 公司归属街道
+	string street = 10;
+	// 公司归属街道id
+	int64 street_id = 11;
+	// 公司归属社区
+	string community = 12;
+	// 公司归属社区id
+	int64 community_id = 13;
+	// 详细地址
+	string detailed_address = 14;
+	// 公司id
+	int64 id = 15;
+	// 行政区划代码
+	string adcode = 16;
+	// 企业编码
+	string identity = 17;
+	// 行业
+	string industry = 18;
+}
+
+message UpdateCompanyInfoRes{
+	base.BaseRes base = 1;
+}
+
+message GetCompanyInfoReq{
+	base.Head head = 1;
+	// 公司id
+	int64 id = 2;
+	// 公司电话
+	string phone = 3;
+}
+
+message GetCompanyInfoRes{
+	base.BaseRes base = 1;
+	CompanyInfo company_info = 2;
+}
+
+message CompanyInfo{
+	// 企业id
+	int64 id = 1;
+	// 企业名称
+	string name = 2;
+	// 联系电话
+	string phone =3;
+	// 公司归属省
+	string province = 4;
+	// 公司归属省id
+	int64 province_id = 5;
+	// 公司归属市
+	string city = 6;
+	// 公司归属市id
+	int64 city_id = 7;
+	// 公司归属县/区
+	string district = 8;
+	// 公司归属县/区id
+	int64 district_id = 9;
+	// 街道
+	string street = 10;
+	// 街道id
+	int64 street_id = 11;
+	// 社区
+	string community = 12;
+	// 社区id
+	int64 community_id = 13;
+	// 详细地址
+	string detailed_address = 14;
+	// 行政区划代码
+	string adcode = 15;
+	// 企业编码
+	string identity = 16;
+	// 行业
+	string industry = 17;
+	// 删除标识, 1 未删除；2已删除
+	int32 is_delete = 18;
+	// 创建时间
+	int64 create_time = 19;
+	// 修改时间
+	int64 update_time = 20;
+}
+
+message AddPreventionRecordReq{
+	base.Head head = 1;
+	// 公司id
+	int64 company_id = 2;
+	// 返岗人数
+	int32 returnee_num = 3;
+	// 防控物资准备情况现场图片路径，以","分割
+	string material_image = 4;
+	// 防控消毒及废弃口罩手套回收现场图片路径,以","分割
+	string disinfection_image = 5;
+	// 消杀时间
+	int64 disinfection_time = 6;
+	// 消杀防疫地点
+	string disinfection_range = 7;
+	// 消杀防疫人员
+	string disinfection_operator = 8;
+}
+
+message AddPreventionRecordRes{
+	base.BaseRes base = 1;
+}
+
+message UpdatePreventionRecordReq{
+	base.Head head = 1;
+	// 公司id
+	int64 company_id = 2;
+	// 返岗人数
+	int32 returnee_num = 3;
+	// 防控物资准备情况现场图片路径，以","分割
+	string material_image = 4;
+	// 防控消毒及废弃口罩手套回收现场图片路径,以","分割
+	string disinfection_image = 5;
+	// 消杀时间
+	int64 disinfection_time = 6;
+	// 消杀防疫地点
+	string disinfection_range = 7;
+	// 消杀防疫人员
+	string disinfection_operator = 8;
+	// 企业防控信息id
+	int64 id = 9;
+}
+
+message UpdatePreventionRecordRes{
+	base.BaseRes base = 1;
+}
+
+message GetPreventionRecordReq{
+	base.Head head = 1;
+	// 公司id
+	int64 company_id = 2;
+}
+
+message GetPreventionRecordRes{
+	base.BaseRes base = 1;
+	PreventionRecord prevention_record = 2;
+}
+message PreventionRecord{
+	// 公司id
+	int64 company_id = 1;
+	// 返岗人数
+	int32 returnee_num = 2;
+	// 防控物资准备情况现场图片路径，以","分割
+	string material_image = 3;
+	// 防控消毒及废弃口罩手套回收现场图片路径,以","分割
+	string disinfection_image = 4;
+	// 消杀时间
+	int64 disinfection_time = 5;
+	// 消杀防疫地点
+	string disinfection_range = 6;
+	// 消杀防疫人员
+	string disinfection_operator = 7;
+	// 企业防控信息id
+	int64 id = 8;
+	// 已填报员工数
+	int32 report_employee_num = 9;
+	// 创建时间
+	int64 create_time = 10;
+	// 修改时间
+	int64 update_time = 11;
+}
+
+message GetCompanyInfoListReq{
+	base.Head head = 1;
+	// 行政区划代码
+	string adcode = 2;
+	// 街道id
+	int64 street_id = 3;
+	// 社区id
+	int64 community_id = 4;
+	// 页数
+	int32 page = 5;
+	// 每页显示数量
+	int32 limit = 6;
+	// 查询字段
+	string query = 7;
+}
+
+message GetCompanyInfoListRes{
+	base.BaseRes base = 1;
+	repeated CompanyInfoListVo company_info_list = 2;
+	int32 total = 3;
+}
+
+message CompanyInfoListVo{
+	// 企业id
+	int64 id = 1;
+	// 企业名称
+	string name = 2;
+	// 联系电话
+	string phone =3;
+	// 公司归属省
+	string province = 4;
+	// 公司归属省id
+	int64 province_id = 5;
+	// 公司归属市
+	string city = 6;
+	// 公司归属市id
+	int64 city_id = 7;
+	// 公司归属县/区
+	string district = 8;
+	// 公司归属县/区id
+	int64 district_id = 9;
+	// 社区
+	string community = 10;
+	// 详细地址
+	string detailed_address = 11;
+	// 企业编码
+	string identity = 14;
+	// 行业
+	int32 is_delete = 16;
+	// 创建时间
+	int64 create_time = 17;
+	// 修改时间
+	int64 update_time = 18;
+	// 返岗人数
+	int32 returnee_num = 19;
+	// 防控物资准备情况现场图片路径，以","分割
+	string material_image = 20;
+	// 防控消毒及废弃口罩手套回收现场图片路径,以","分割
+	string disinfection_image = 21;
+	// 消杀时间
+	int64 disinfection_time = 22;
+	// 消杀防疫地点
+	string disinfection_range = 23;
+	// 消杀防疫人员
+	string disinfection_operator = 24;
+	// 已填报员工数
+	int32 report_employee_num = 25;
+}
+
+message DeleteCompanyInfoReq{
+	base.Head head = 1;
+	// 公司id
+	string ids = 2;
+}
+
+message DeleteCompanyInfoRes{
+	base.BaseRes base = 1;
+}
+
+message GetPreventionRecordListReq{
+	base.Head head = 1;
+	// 企业id
+	int64 company_id = 4;
+	// 页数
+	int32 page = 5;
+	// 每页显示数量
+	int32 limit = 6;
+}
+
+message GetPreventionRecordListRes{
+	base.BaseRes base = 1;
+	repeated PreventionRecordListVo prevention_record_list = 2;
+	int32 total = 3;
+}
+
+message PreventionRecordListVo{
+	// 公司id
+	int64 company_id = 1;
+	// 返岗人数
+	int32 returnee_num = 2;
+	// 防控物资准备情况现场图片路径，以","分割
+	string material_image = 3;
+	// 防控消毒及废弃口罩手套回收现场图片路径,以","分割
+	string disinfection_image = 4;
+	// 消杀时间
+	int64 disinfection_time = 5;
+	// 消杀防疫地点
+	string disinfection_range = 6;
+	// 消杀防疫人员
+	string disinfection_operator = 7;
+	// 企业防控信息id
+	int64 id = 8;
+	// 已填报员工数
+	int32 report_employee_num = 9;
+	// 创建时间
+	int64 create_time = 10;
+	// 修改时间
+	int64 update_time = 11;
+}
+
+
+
+
+

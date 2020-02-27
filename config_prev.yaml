@@ -1,0 +1,19 @@
+ALL:
+  port: 10002
+  servername : "ALL"
+  database: "robot"
+default :
+  mysql:
+    maxIdleConns: 700
+    maxOpenConns: 700
+    port: 3306
+    host: "rm-2ze0624x75gk25025.mysql.rds.aliyuncs.com"
+    username: "xiaoka"
+    password: "Xiaoka520"
+    debug: true
+    database: "robot"
+  qiniu:
+    accessKey: "5bJMhEn4DSLNAJT-JiIw9rhmk8coOxMpVwGZoCRc"
+    bucket: "images"
+    secretKey: "mSDqSTWRySYhEatdMuGlNGKFQLhYD4Ue97XYiSD3"
+

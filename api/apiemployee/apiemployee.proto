@@ -1,0 +1,644 @@
+syntax = "proto3";
+
+package apiemployee;
+
+import "robot-server/api/base/base.proto";
+
+
+service Employee {
+    rpc WebLogin (WebLoginReq) returns (WebLoginRes);
+    // 添加员工基本信息
+    rpc AddEmployeeInfo (AddEmployeeInfoReq) returns (AddEmployeeInfoRes);
+    // 编辑员工基本信息
+    rpc UpdateEmployeeInfo (UpdateEmployeeInfoReq) returns (UpdateEmployeeInfoRes);
+    // 获取员工基本信息
+    rpc GetEmployeeInfo (GetEmployeeInfoReq) returns (GetEmployeeInfoRes);
+    // 添加员工健康信息
+    rpc AddEmployeeHealthInfo (AddEmployeeHealthInfoReq) returns (AddEmployeeHealthInfoRes);
+    // 修改员工健康信息
+    rpc UpdateEmployeeHealthInfo (UpdateEmployeeHealthInfoReq) returns (UpdateEmployeeHealthInfoRes);
+    // 获取员工健康信息
+    rpc GetEmployeeHealthInfo (GetEmployeeHealthInfoReq) returns (GetEmployeeHealthInfoRes);
+    // 添加/更新员工健康台账
+    rpc AddEmployeeHealthRecord (AddEmployeeHealthRecordReq) returns (AddEmployeeHealthRecordRes);
+    // 根据公司id，获取员工最新健康台账
+    rpc GetEmployeeHealthRecordListByCompanyId (GetEmployeeHealthRecordListByCompanyIdReq) returns (GetEmployeeHealthRecordListByCompanyIdRes);
+    // 获取七牛云 token
+    rpc GetQiniuToken (GetQiniuTokenReq) returns (GetQiniuTokenRes);
+    // 获取员工健康台账历史记录
+    rpc GetEmployeeHealthRecordList (GetEmployeeHealthRecordListReq) returns (GetEmployeeHealthRecordListRes);
+    // web 个人页面查询展示信息
+    rpc QueryEmployInfoByUser (QueryEmployInfoByUserReq) returns (QueryEmployInfoByUserRes);
+    // 删除个人信息
+    rpc DeleteEmployInfo (DeleteEmployInfoReq) returns (DeleteEmployInfoRes);
+
+}
+
+
+message QueryEmployInfoByUserReq {
+    base.Head head = 1;
+    int64 street_id = 2;
+    int64 community_id = 3;
+    int32 user_type = 4;
+    int64 last_record_id = 5;
+    int32 page = 6;
+    int32 limit = 7;
+    // 查询字段
+    string query = 8;
+    int64 adcode = 9;
+    int64 created_time = 10;
+}
+
+
+message DeleteEmployInfoReq {
+    base.Head head = 1;
+    string emp_ids = 2;
+}
+
+message DeleteEmployInfoRes {
+    base.BaseRes base = 1;
+}
+
+message QueryEmployInfoByUserMode {
+    string name = 1;
+    string phone = 2;
+    int32 gender = 3;
+    string company_name = 4;
+    int64 company_id = 5;
+    string id_card_number = 6;
+    string company_community = 7;
+    int64 company_community_id = 8;
+    string residence_detailed_address = 9;
+    string residence_community = 10;
+    int64 residence_community_id = 11;
+    int64 created_time = 12;
+    int64 update_time = 13;
+    // 所在部门
+    string department = 14;
+    // 今日体温（摄氏度）
+    float temperature = 15;
+    // 是否出现发热、干咳、乏力、呼吸困难等症状 1:是，2否
+    int32 epidemic_symptom = 16;
+    // 检测结果
+    string detection_result = 17;
+    // 检测人
+    string detection_operator = 18;
+    string symptom_within14_days = 19;
+    // 是否湖北返蓉人员
+    int32 form_hu_bei = 20;
+    // 过去14天内是否有接触过新型冠状病毒的肺炎病例？
+    int32 touch_NCP = 21;
+    // 过去14天内是否有过湖北或其他有本地病例持续传播地区的旅居史？
+    int32 been_to_hu_bei = 22;
+    // 返蓉时间
+    int64 return_cheng_du_time = 23;
+    // 返蓉详细地址
+    string return_cheng_du_detailed_address = 24;
+    // 返蓉交通工具，","分割
+    string return_cheng_du_transport = 25;
+    // 交通工具详细信息（例如班次、航班号、车牌号）
+    string transport_detail_info = 26;
+    // 过去14天内是否与湖北等地区人员有接触史？
+    int32 touch_hu_bei_people_within14_days = 27;
+    // 最后接触时间
+    int64 last_touch_time = 28;
+    // 是否是2020年2月3日0:00时后从成都市以外区域来温江？
+    int32 from_cheng_du_outside = 29;
+    // 您何时来温江
+    int64 this_place_time = 30;
+    string return_this_place_transport = 31;
+    // 您的职业是
+    string profession = 32;
+    // 来温江前14天主要活动轨迹，","分割
+    string life_trace = 33;
+    // 签名图片地址
+    string sign_image = 34;
+    int64 employee_id = 35;
+    // 公司详细地址
+    string detailed_address = 36;
+    // 从何处来温江 市内还是室外
+    string come_from_wenjiang = 37;
+    // 从何处来 省/市/区
+    string come_from_address = 38;
+    // 从何处来详细地址
+    string come_from_detailed_address = 39;
+    int32 age = 40;
+    // 公司归属省
+    string company_province = 41;
+    // 公司归属省id
+    int64 company_province_id = 42;
+    // 公司归属市
+    string company_city = 43;
+    // 公司归属市id
+    int64 company_city_id = 44;
+    // 公司归属县/区
+    string company_district = 45;
+    // 公司归属县/区
+    int64 company_district_id = 46;
+
+}
+
+message QueryEmployInfoByUserRes {
+    base.BaseRes base = 1;
+    repeated QueryEmployInfoByUserMode info = 2;
+    int64 total = 3;
+}
+
+message GetQiniuTokenReq {
+    base.Head head = 1;
+}
+
+message GetQiniuTokenRes {
+    base.BaseRes base = 1;
+    string token = 2;
+}
+
+
+message WebLoginReq {
+    base.Head head = 1;
+    string user_name = 2;
+    string pwd = 3;
+}
+
+message WebLoginInfo {
+    string user_id = 1;
+    string user_name = 2;
+    string user_pwd = 3;
+    string street_id = 4;
+    string community_id = 5;
+    // 1 表示街道账号 2 表示社区账号  3表示超级账号
+    int32 user_type = 6;
+    int64 adcode = 7;
+    int64 created_time = 8;
+}
+
+message WebLoginRes {
+    base.BaseRes base = 1;
+    WebLoginInfo info = 2;
+}
+
+
+message AddEmployeeInfoReq {
+    base.Head head = 1;
+    // 姓名
+    string name = 2;
+    // 联系电话
+    string phone = 3;
+    // 公司归属省
+    string company_province = 4;
+    // 公司归属省id
+    int64 company_province_id = 5;
+    // 公司归属市
+    string company_city = 6;
+    // 公司归属市id
+    int64 company_city_id = 7;
+    // 公司归属县/区
+    string company_district = 8;
+    // 公司归属县/区
+    int64 company_district_id = 9;
+    // 公司归属街道
+    string company_street = 10;
+    // 公司归属街道id
+    int64 company_street_id = 11;
+    // 公司归属社区
+    string company_community = 12;
+    // 公司归属社区id
+    int64 company_community_id = 13;
+    // 企业名称
+    string company_name = 14;
+    // 公司id
+    int64 company_id = 15;
+    // 身份证号码
+    string id_card_number = 16;
+    // 性别 1：女；2：男
+    int32 gender = 17;
+    // 年龄
+    int32 age = 18;
+    // 居住地所属省
+    string residence_province = 19;
+    // 居住地所属省id
+    int64 residence_province_id = 20;
+    // 居住地归属市
+    string residence_city = 21;
+    // 居住地归属市id
+    int64 residence_city_id = 22;
+    // 居住地归属县/区
+    string residence_district = 23;
+    // 居住地归属县/区id
+    int64 residence_district_id = 24;
+    // 居住地归属街道
+    string residence_street = 25;
+    // 居住地归属街道id
+    int64 residence_street_id = 26;
+    // 居住地归属社区
+    string residence_community = 27;
+    // 居住地归属社区id
+    int64 residence_community_id = 28;
+    // 详细居住地址
+    string residence_detailed_address = 29;
+    // 创建时间
+    int64 created_time = 30;
+    // 最近修改时间
+    int64 update_time = 31;
+    // 1表示未删除  2表示删除
+    int32 is_delete = 32;
+}
+
+message AddEmployeeInfoRes {
+    base.BaseRes base = 1;
+}
+
+message UpdateEmployeeInfoReq {
+    base.Head head = 1;
+    // 姓名
+    string name = 2;
+    // 联系电话
+    string phone = 3;
+    // 公司归属省
+    string company_province = 4;
+    // 公司归属省id
+    int64 company_province_id = 5;
+    // 公司归属市
+    string company_city = 6;
+    // 公司归属市id
+    int64 company_city_id = 7;
+    // 公司归属县/区
+    string company_district = 8;
+    // 公司归属县/区
+    int64 company_district_id = 9;
+    // 公司归属街道
+    string company_street = 10;
+    // 公司归属街道id
+    int64 company_street_id = 11;
+    // 公司归属社区
+    string company_community = 12;
+    // 公司归属社区id
+    int64 company_community_id = 13;
+    // 企业名称
+    string company_name = 14;
+    // 公司id
+    int64 company_id = 15;
+    // 身份证号码
+    string id_card_number = 16;
+    // 性别 1：女；2：男
+    int32 gender = 17;
+    // 年龄
+    int32 age = 18;
+    // 居住地所属省
+    string residence_province = 19;
+    // 居住地所属省id
+    int64 residence_province_id = 20;
+    // 居住地归属市
+    string residence_city = 21;
+    // 居住地归属市id
+    int64 residence_city_id = 22;
+    // 居住地归属县/区
+    string residence_district = 23;
+    // 居住地归属县/区id
+    int64 residence_district_id = 24;
+    // 居住地归属街道
+    string residence_street = 25;
+    // 居住地归属街道id
+    int64 residence_street_id = 26;
+    // 居住地归属社区
+    string residence_community = 27;
+    // 居住地归属社区id
+    int64 residence_community_id = 28;
+    // 详细居住地址
+    string residence_detailed_address = 29;
+    // 员工id
+    int64 id = 30;
+}
+
+message UpdateEmployeeInfoRes {
+    base.BaseRes base = 1;
+}
+
+message GetEmployeeInfoReq {
+    base.Head head = 1;
+    // 员工id
+    int64 id = 2;
+}
+
+message GetEmployeeInfoRes {
+    base.BaseRes base = 1;
+    EmployeeInfo employee_info = 2;
+}
+
+message EmployeeInfo {
+    // 姓名
+    string name = 2;
+    // 联系电话
+    string phone = 3;
+    // 公司归属省
+    string company_province = 4;
+    // 公司归属省id
+    int64 company_province_id = 5;
+    // 公司归属市
+    string company_city = 6;
+    // 公司归属市id
+    int64 company_city_id = 7;
+    // 公司归属县/区
+    string company_district = 8;
+    // 公司归属县/区
+    int64 company_district_id = 9;
+    // 公司归属街道
+    string company_street = 10;
+    // 公司归属街道id
+    int64 company_street_id = 11;
+    // 公司归属社区
+    string company_community = 12;
+    // 公司归属社区id
+    int64 company_community_id = 13;
+    // 企业名称
+    string company_name = 14;
+    // 公司id
+    int64 company_id = 15;
+    // 身份证号码
+    string id_card_number = 16;
+    // 性别 1：女；2：男
+    int32 gender = 17;
+    // 年龄
+    int32 age = 18;
+    // 居住地所属省
+    string residence_province = 19;
+    // 居住地所属省id
+    int64 residence_province_id = 20;
+    // 居住地归属市
+    string residence_city = 21;
+    // 居住地归属市id
+    int64 residence_city_id = 22;
+    // 居住地归属县/区
+    string residence_district = 23;
+    // 居住地归属县/区id
+    int64 residence_district_id = 24;
+    // 居住地归属街道
+    string residence_street = 25;
+    // 居住地归属街道id
+    int64 residence_street_id = 26;
+    // 居住地归属社区
+    string residence_community = 27;
+    // 居住地归属社区id
+    int64 residence_community_id = 28;
+    // 详细居住地址
+    string residence_detailed_address = 29;
+    // 员工id
+    int64 id = 30;
+    int64 create_time = 31;
+    int64 update_time = 32;
+    int32 is_delete = 33;
+}
+
+message AddEmployeeHealthInfoReq {
+    base.Head head = 1;
+    // 过去14天到现在，是否有以下症状,","分割
+    string symptom_within14_days = 2;
+    // 是否湖北返蓉人员
+    int32 form_hu_bei = 3;
+    // 过去14天内是否有接触过新型冠状病毒的肺炎病例？
+    int32 touch_NCP = 4;
+    // 过去14天内是否有过湖北或其他有本地病例持续传播地区的旅居史？
+    int32 been_to_hu_bei = 5;
+    // 返蓉时间
+    int64 return_cheng_du_time = 6;
+    // 返蓉详细地址
+    string return_cheng_du_detailed_address = 7;
+    // 返蓉交通工具，","分割
+    string return_cheng_du_transport = 8;
+    // 交通工具详细信息（例如班次、航班号、车牌号）
+    string transport_detail_info = 9;
+    // 过去14天内是否与湖北等地区人员有接触史？
+    int32 touch_hu_bei_people_within14_days = 10;
+    // 最后接触时间
+    int64 last_touch_time = 11;
+    // 是否是2020年2月3日0:00时后从成都市以外区域来温江？
+    int32 from_cheng_du_outside = 12;
+    // 您何时来温江
+    int64 this_place_time = 13;
+    // 乘坐何种交通工具到温江，","分割
+    string return_this_place_transport = 14;
+    // 您的职业是
+    string profession = 15;
+    // 来温江前14天主要活动轨迹，","分割
+    string life_trace = 16;
+    // 签名图片地址
+    string sign_image = 17;
+    // 员工id
+    int64 employee_id = 18;
+    // 员工所属公司id
+    int64 company_id = 19;
+    // 从何处来温江 市内还是室外
+    string come_from_wenjiang = 20;
+    // 从何处来 省/市/区
+    string come_from_address = 21;
+    // 从何处来详细地址
+    string come_from_detailed_address = 22;
+}
+
+message AddEmployeeHealthInfoRes {
+    base.BaseRes base = 1;
+}
+
+message UpdateEmployeeHealthInfoReq {
+    base.Head head = 1;
+    // 过去14天到现在，是否有以下症状,","分割
+    string symptom_within14_days = 2;
+    // 是否湖北返蓉人员
+    int32 form_hu_bei = 3;
+    // 过去14天内是否有接触过新型冠状病毒的肺炎病例？
+    int32 touch_NCP = 4;
+    // 过去14天内是否有过湖北或其他有本地病例持续传播地区的旅居史？
+    int32 been_to_hu_bei = 5;
+    // 返蓉时间
+    int64 return_cheng_du_time = 6;
+    // 返蓉详细地址
+    string return_cheng_du_detailed_address = 7;
+    // 返蓉交通工具，","分割
+    string return_cheng_du_transport = 8;
+    // 交通工具详细信息（例如班次、航班号、车牌号）
+    string transport_detail_info = 9;
+    // 过去14天内是否与湖北等地区人员有接触史？
+    int32 touch_hu_bei_people_within14_days = 10;
+    // 最后接触时间
+    int64 last_touch_time = 11;
+    // 是否是2020年2月3日0:00时后从成都市以外区域来温江？
+    int32 from_cheng_du_outside = 12;
+    // 您何时来温江
+    int64 this_place_time = 13;
+    // 乘坐何种交通工具到温江，","分割
+    string return_this_place_transport = 14;
+    // 您的职业是
+    string profession = 15;
+    // 来温江前14天主要活动轨迹，","分割
+    string life_trace = 16;
+    // 签名图片地址
+    string sign_image = 17;
+    // 员工健康信息id
+    int64 id = 18;
+    // 员工id
+    int64 employee_id = 19;
+    // 员工所属公司id
+    int64 company_id = 20;
+    // 从何处来温江 市内还是室外
+    string come_from_wenjiang = 21;
+    // 从何处来 省/市/区
+    string come_from_address = 22;
+    // 从何处来详细地址
+    string come_from_detailed_address = 23;
+}
+
+message UpdateEmployeeHealthInfoRes {
+    base.BaseRes base = 1;
+}
+
+message GetEmployeeHealthInfoReq {
+    base.BaseRes base = 1;
+    // 员工id
+    int64 employee_id = 2;
+}
+
+message GetEmployeeHealthInfoRes {
+    base.BaseRes base = 1;
+    EmployeeHealthInfo employee_health_info = 2;
+}
+
+message EmployeeHealthInfo {
+    // 过去14天到现在，是否有以下症状,","分割
+    string symptom_within14_days = 2;
+    // 是否湖北返蓉人员
+    int32 form_hu_bei = 3;
+    // 过去14天内是否有接触过新型冠状病毒的肺炎病例？
+    int32 touch_NCP = 4;
+    // 过去14天内是否有过湖北或其他有本地病例持续传播地区的旅居史？
+    int32 been_to_hu_bei = 5;
+    // 返蓉时间
+    int64 return_cheng_du_time = 6;
+    // 返蓉详细地址
+    string return_cheng_du_detailed_address = 7;
+    // 返蓉交通工具，","分割
+    string return_cheng_du_transport = 8;
+    // 交通工具详细信息（例如班次、航班号、车牌号）
+    string transport_detail_info = 9;
+    // 过去14天内是否与湖北等地区人员有接触史？
+    int32 touch_hu_bei_people_within14_days = 10;
+    // 最后接触时间
+    int64 last_touch_time = 11;
+    // 是否是2020年2月3日0:00时后从成都市以外区域来温江？
+    int32 from_cheng_du_outside = 12;
+    // 您何时来温江
+    int64 this_place_time = 13;
+    // 乘坐何种交通工具到温江，","分割
+    string return_this_place_transport = 14;
+    // 您的职业是
+    string profession = 15;
+    // 来温江前14天主要活动轨迹，","分割
+    string life_trace = 16;
+    // 签名图片地址
+    string sign_image = 17;
+    // 员工健康信息id
+    int64 id = 18;
+    // 员工id
+    int64 employee_id = 19;
+    // 员工所属公司id
+    int64 company_id = 20;
+    int64 update_time = 21;
+    // 从何处来温江 市内还是室外
+    string come_from_wenjiang = 22;
+    // 从何处来 省/市/区
+    string come_from_address = 23;
+    // 从何处来详细地址
+    string come_from_detailed_address = 24;
+}
+
+message AddEmployeeHealthRecordReq {
+    base.BaseRes base = 1;
+    // 员工id
+    int64 employee_id = 2;
+    // 所在部门
+    string department = 3;
+    // 今日体温（摄氏度）
+    float temperature = 4;
+    // 是否出现发热、干咳、乏力、呼吸困难等症状 1:是，2否
+    int32 epidemic_symptom = 5;
+    // 检测结果
+    string detection_result = 6;
+    // 检测人
+    string detection_operator = 7;
+    // 员工所属公司id
+    int64 company_id = 8;
+}
+
+message AddEmployeeHealthRecordRes {
+    base.BaseRes base = 1;
+}
+
+message GetEmployeeHealthRecordListByCompanyIdReq {
+    base.BaseRes base = 1;
+    // 公司id
+    int64 company_id = 2;
+}
+
+message GetEmployeeHealthRecordListByCompanyIdRes {
+    base.BaseRes base = 1;
+    repeated EmployeeHealthRecord employee_health_records = 2;
+}
+
+message EmployeeHealthRecord {
+    // 员工id
+    int64 employee_id = 2;
+    // 所在部门
+    string department = 3;
+    // 今日体温（摄氏度）
+    float temperature = 4;
+    // 是否出现发热、干咳、乏力、呼吸困难等症状 1:是，2否
+    int32 epidemic_symptom = 5;
+    // 检测结果
+    string detection_result = 6;
+    // 检测人
+    string detection_operator = 7;
+    // 员工健康台账记录id
+    int64 id = 8;
+    // 创建时间
+    int64 created_time = 9;
+    // 员工所属公司id
+    int64 company_id = 10;
+    int64 updated_time = 11;
+}
+
+message GetEmployeeHealthRecordListReq {
+    base.BaseRes base = 1;
+    // 员工id
+    int64 employee_id = 2;
+    // 页数
+    int32 page = 3;
+    // 每页显示数量
+    int32 limit = 4;
+}
+
+message GetEmployeeHealthRecordListRes {
+    base.BaseRes base = 1;
+    repeated EmployeeHealthRecordListVo employee_health_record_list = 2;
+    // 数据总数
+    int32 total = 3;
+}
+
+message EmployeeHealthRecordListVo {
+    // 员工id
+    int64 employee_id = 2;
+    // 所在部门
+    string department = 3;
+    // 今日体温（摄氏度）
+    float temperature = 4;
+    // 是否出现发热、干咳、乏力、呼吸困难等症状 1:是，2否
+    int32 epidemic_symptom = 5;
+    // 检测结果
+    string detection_result = 6;
+    // 检测人
+    string detection_operator = 7;
+    // 员工健康台账记录id
+    int64 id = 8;
+    // 创建时间
+    int64 created_time = 9;
+    // 最近更新时间
+    int64 updated_time = 10;
+}

@@ -1,0 +1,57 @@
+syntax = "proto3" ;
+
+package base ;
+
+message Head {
+	// int32 ApiID = 1;
+	string ConnID = 1;
+	string GroupID = 2;
+	string AppKey = 3;
+	string ServerID = 4;
+}
+
+message BaseRes {
+	int64 ErrorCode = 1;
+}
+
+
+message Msg {
+	Api api_id = 1;
+	bytes Data = 2;
+}
+
+
+enum Api {
+	Empty = 0;
+	BuildConn = 1;
+	WebLogin = 2;
+	AddEmployeeInfo= 3;
+	UpdateEmployeeInfo = 4;
+	GetEmployeeInfo=5;
+	AddEmployeeHealthInfo=6;
+	UpdateEmployeeHealthInfo=7;
+	GetEmployeeHealthInfo=8;
+	AddEmployeeHealthRecord=9;
+	AddCompanyInfo = 10;
+	UpdateCompanyInfo = 11;
+	GetCompanyInfo = 12;
+	AddPreventionRecord = 13;
+	UpdatePreventionRecord = 14;
+	GetPreventionRecord = 15;
+	GetQiniuToken = 16;
+	GetProvinces = 17;
+	GetCity = 18;
+	GetDistrict = 19;
+	GetStreet = 20;
+	GetCommunity = 21;
+	QueryEmployInfoByUser = 22;
+	GetCompanyInfoList = 23;
+	DeleteCompanyInfo = 24;
+	GetPreventionRecordList = 25;
+	GetEmployeeHealthRecordList = 26;
+	DeleteEmployInfo = 27;
+	GetEmployeeHealthRecordListByCompanyId = 28;
+}
+
+
+
