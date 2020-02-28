@@ -51,6 +51,8 @@ enum Api {
 	GetEmployeeHealthRecordList = 26;
 	DeleteEmployInfo = 27;
 	GetEmployeeHealthRecordListByCompanyId = 28;
+	ExportFinish = 29;
+	Export = 30;
 }
 
 

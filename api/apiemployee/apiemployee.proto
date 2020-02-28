@@ -37,7 +37,9 @@ service Employee {
 
 message QueryEmployInfoByUserReq {
     base.Head head = 1;
+		// 街道编码
     int64 street_id = 2;
+		// 社区编码 比如 柳城街道社区
     int64 community_id = 3;
     int32 user_type = 4;
     int64 last_record_id = 5;
@@ -45,6 +47,7 @@ message QueryEmployInfoByUserReq {
     int32 limit = 7;
     // 查询字段
     string query = 8;
+		// 区域编码 比如温江区
     int64 adcode = 9;
     int64 created_time = 10;
 }
@@ -170,6 +173,12 @@ message WebLoginInfo {
     int32 user_type = 6;
     int64 adcode = 7;
     int64 created_time = 8;
+		// 所在省ID
+		int64 province_id = 9;
+		// 所在市ID
+		int64 city_id = 10;
+		// 所在县级ID
+		int64 area_id = 11;
 }
 
 message WebLoginRes {
@@ -246,6 +255,7 @@ message AddEmployeeInfoReq {
 
 message AddEmployeeInfoRes {
     base.BaseRes base = 1;
+		int64 id = 2;
 }
 
 message UpdateEmployeeInfoReq {
@@ -437,6 +447,7 @@ message AddEmployeeHealthInfoReq {
 
 message AddEmployeeHealthInfoRes {
     base.BaseRes base = 1;
+		int64 id = 2;
 }
 
 message UpdateEmployeeHealthInfoReq {

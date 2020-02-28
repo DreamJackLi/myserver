@@ -51,8 +51,8 @@ func DeleteConnByID(c *Conn) {
 	_, ok := cm.connMap[c.ConnID]
 	if ok {
 		delete(cm.connMap, c.ConnID)
+		cm.num--
 	}
-	cm.num--
 	fmt.Println("Delete Conn Cur Conn Num is ", cm.num)
 }
 
@@ -61,6 +61,7 @@ func CloseConnManager() {
 	for _, v := range cm.connMap {
 		v.Close()
 		delete(cm.connMap, v.ConnID)
+		cm.num--
 	}
 	cm.lock.Unlock()
 }

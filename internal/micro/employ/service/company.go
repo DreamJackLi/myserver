@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"fmt"
 	"robot-server/api/apicompany"
 	"robot-server/api/base"
 	"robot-server/internal/core/errorcode"
@@ -130,10 +131,11 @@ func (c *CompanyServer) GetCompanyInfo(ctx context.Context, in *apicompany.GetCo
 	if in == nil {
 		return &apicompany.GetCompanyInfoRes{Base: &base.BaseRes{ErrorCode: errorcode.ParameterError}}, nil
 	}
-	if tool.IsBlank(in.Phone) {
+	fmt.Println("GetCompanyInfo in ", in)
+	if in.Id == 0 {
 		return &apicompany.GetCompanyInfoRes{Base: &base.BaseRes{ErrorCode: errorcode.ParameterError}}, nil
 	}
-	companyInfo := empdb.GetCompanyInfo(in.Phone)
+	companyInfo := empdb.GetCompanyInfo(in.Id)
 	return &apicompany.GetCompanyInfoRes{Base: &base.BaseRes{ErrorCode: errorcode.Succeed}, CompanyInfo: companyInfo}, nil
 }
 
@@ -176,7 +178,7 @@ func (c *CompanyServer) AddPreventionRecord(ctx context.Context, in *apicompany.
 	if err != nil {
 		return &apicompany.AddPreventionRecordRes{Base: &base.BaseRes{ErrorCode: errorcode.InsertError}}, nil
 	}
-	return &apicompany.AddPreventionRecordRes{Base: &base.BaseRes{ErrorCode: errorcode.Succeed}}, nil
+	return &apicompany.AddPreventionRecordRes{Base: &base.BaseRes{ErrorCode: errorcode.Succeed}, Id: record.Id}, nil
 }
 
 func today(t int64) bool {

@@ -28,14 +28,13 @@ func (e *EmployServer) GetQiniuToken(ctx context.Context, in *apiemployee.GetQin
 	putPolicy.Expires = 3600 * 24 * 356 * 2 //示例两年有效期
 	mac := qbox.NewMac(config.Get().Qiniu.AccessKey, config.Get().Qiniu.SecretKey)
 	upToken := putPolicy.UploadToken(mac)
-
+	fmt.Println("upToken  ", upToken)
 	return &apiemployee.GetQiniuTokenRes{
 		Base: &base.BaseRes{
 			ErrorCode: errorcode.Succeed,
 		},
 		Token: upToken,
 	}, nil
-
 }
 
 func (e *EmployServer) WebLogin(ctx context.Context, in *apiemployee.WebLoginReq) (*apiemployee.WebLoginRes, error) {
@@ -69,6 +68,8 @@ func (e *EmployServer) AddEmployeeInfo(ctx context.Context, in *apiemployee.AddE
 	if in == nil {
 		return &apiemployee.AddEmployeeInfoRes{Base: &base.BaseRes{ErrorCode: errorcode.ParameterError}}, nil
 	}
+
+	fmt.Println("AddEmployeeInfo in ", in)
 	if tool.IsBlank(in.Name) {
 		return &apiemployee.AddEmployeeInfoRes{Base: &base.BaseRes{ErrorCode: errorcode.ParameterError}}, nil
 	}
@@ -160,7 +161,8 @@ func (e *EmployServer) AddEmployeeInfo(ctx context.Context, in *apiemployee.AddE
 	if err != nil {
 		return &apiemployee.AddEmployeeInfoRes{Base: &base.BaseRes{ErrorCode: errorcode.InsertError}}, nil
 	}
-	return &apiemployee.AddEmployeeInfoRes{Base: &base.BaseRes{ErrorCode: errorcode.Succeed}}, nil
+	fmt.Println(employeeInfo.Id)
+	return &apiemployee.AddEmployeeInfoRes{Base: &base.BaseRes{ErrorCode: errorcode.Succeed}, Id: employeeInfo.Id}, nil
 }
 
 // 编辑员工基本信息
@@ -344,7 +346,7 @@ func (e *EmployServer) AddEmployeeHealthInfo(ctx context.Context, in *apiemploye
 	if err != nil {
 		return &apiemployee.AddEmployeeHealthInfoRes{Base: &base.BaseRes{ErrorCode: errorcode.InsertError}}, nil
 	}
-	return &apiemployee.AddEmployeeHealthInfoRes{Base: &base.BaseRes{ErrorCode: errorcode.Succeed}}, nil
+	return &apiemployee.AddEmployeeHealthInfoRes{Base: &base.BaseRes{ErrorCode: errorcode.Succeed}, Id: employeeHealthInfo.Id}, nil
 }
 
 // 修改员工健康信息
@@ -423,6 +425,8 @@ func (e *EmployServer) GetEmployeeHealthInfo(ctx context.Context, in *apiemploye
 	if in.EmployeeId == 0 {
 		return &apiemployee.GetEmployeeHealthInfoRes{Base: &base.BaseRes{ErrorCode: errorcode.ParameterError}}, nil
 	}
+
+	fmt.Println("GetEmployeeHealthInfo in ", in)
 	employeeHealthInfo := empdb.GetEmployeeHealthInfo(in.EmployeeId)
 	return &apiemployee.GetEmployeeHealthInfoRes{Base: &base.BaseRes{ErrorCode: errorcode.Succeed}, EmployeeHealthInfo: employeeHealthInfo}, nil
 }

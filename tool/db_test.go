@@ -99,7 +99,7 @@ func TestData(t *testing.T) {
 				ResidenceDetailedAddress: "天府家园41栋3单元509",
 				CreateTime:               time.Now().Unix(),
 				UpdateTime:               time.Now().Unix(),
-				IsDelete:                 2,
+				IsDelete:                 1,
 			}
 			db.Model(apiemployee.EmployeeInfo{}).Create(employeeInfo)
 			employeeHealthInfo := &apiemployee.EmployeeHealthInfo{

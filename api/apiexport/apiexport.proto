@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+package apiexport;
+
+import "robot-server/api/base/base.proto";
+
+
+service Export {
+    // 导出通用方法
+    rpc Export (ExportReq) returns (ExportRes);
+}
+
+message ExportReq {
+    base.Head head = 1;
+    // 导出标签：企业 company；员工：employee
+    string tag = 2;
+    // 导出字段，以array包装后转为json字符串，格式实例:[{"field":"name","display":"企业名称"},{"field":"detailed_address","display":"详细地址"}]
+    string field = 3;
+    // 公司归属省id
+    int64 province_id = 5;
+    // 公司归属市id
+    int64 city_id = 7;
+    // 公司归属县/区id
+    int64 district_id = 9;
+    // 街道id
+    int64 street_id = 11;
+    // 社区id
+    int64 community_id = 13;
+}
+
+message ExportRes {
+    base.BaseRes base = 1;
+    // 文件包地址
+    string file_address = 2;
+}
+
+message ExportRecord {
+    // 主键
+    int64 id = 1;
+    // 导出标签
+   string tag = 2;
+    // 统计sql
+    string count_sql = 5;
+    // 查询sql
+    string query_sql = 6;
+    // 文件包地址
+    string file_path = 7;
+    // 状态 1.创建任务；2.数据写入文件；3文件上传；4.完成
+    int32 status = 8;
+}
+
+message Field {
+    // 字段名
+    string filed = 1;
+    // 页面展示名称
+    string display = 2;
+}
+
+
+
+

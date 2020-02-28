@@ -8,6 +8,7 @@ import (
 	"robot-server/api/apiarea"
 	"robot-server/api/apicompany"
 	"robot-server/api/apiemployee"
+	"robot-server/api/apiexport"
 
 	"google.golang.org/grpc"
 )
@@ -19,5 +20,6 @@ func init() {
 		apiemployee.RegisterEmployeeServer(s, &service.EmployServer{})
 		apicompany.RegisterCompanyServer(s, &service.CompanyServer{})
 		apiarea.RegisterAreaServer(s, &service.AreaServer{})
+		apiexport.RegisterExportServer(s, &service.ExportServer{})
 	})
 }

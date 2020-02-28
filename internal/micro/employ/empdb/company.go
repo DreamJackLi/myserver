@@ -24,9 +24,9 @@ func UpdateCompanyInfo(company *apicompany.CompanyInfo) error {
 	return db.Error
 }
 
-func GetCompanyInfo(phone string) *apicompany.CompanyInfo {
+func GetCompanyInfo(id int64) *apicompany.CompanyInfo {
 	company := new(apicompany.CompanyInfo)
-	coredb.Get().Model(apicompany.CompanyInfo{}).Where("phone = ?", phone).Find(company)
+	coredb.Get().Model(apicompany.CompanyInfo{}).Where("id = ?", id).Find(company)
 	return company
 }
 func GetCompanyDetailAddress(companyIDs string) ([]*apicompany.CompanyInfo, error) {

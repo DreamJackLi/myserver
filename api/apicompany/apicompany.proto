@@ -186,6 +186,7 @@ message AddPreventionRecordReq{
 
 message AddPreventionRecordRes{
 	base.BaseRes base = 1;
+	int64 id = 2;
 }
 
 message UpdatePreventionRecordReq{

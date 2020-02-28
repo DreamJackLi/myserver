@@ -21,9 +21,9 @@ type mysql struct {
 }
 
 type qiniuCfg struct {
-	AccessKey string
-	Bucket    string
-	SecretKey string
+	AccessKey string `yaml:"accessKey"`
+	Bucket    string `yaml:"bucket"`
+	SecretKey string `yaml:"secretKey"`
 }
 
 type serverCfg struct {
@@ -59,8 +59,8 @@ func getFileName() string {
 	}
 
 	// file = "D:/work_space/v5-learning/merge/src/robot-server/config_test.yaml"
-	file = os.Getenv("GOPATH") + "/" + file
-	// file = "/home/m/go/src/robot-server/config_test.yaml"
+	// file = os.Getenv("GOPATH") + "/" + file
+	file = "/home/m/go/src/robot-server/config_test.yaml"
 	return file
 }
 

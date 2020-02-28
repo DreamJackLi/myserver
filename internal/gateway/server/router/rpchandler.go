@@ -104,4 +104,5 @@ func RegistRpcHandler_v2() {
 	apiMap_v2[int32(base.Api_DeleteEmployInfo)] = deleteEmployInfo
 	apiMap_v2[int32(base.Api_GetEmployeeHealthRecordListByCompanyId)] = getEmployeeHealthRecordListByCompanyId
 
+	apiMap_v2[int32(base.Api_Export)] = export
 }

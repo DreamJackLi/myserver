@@ -17,4 +17,6 @@ const (
 	PwdError = 7
 	// 删除错误错误
 	DeleteError = 8
+	// 导出标签错误
+	ExportTagError = 9
 )
