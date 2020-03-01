@@ -1,6 +1,6 @@
 package message
 
-import "robot-server/api/base"
+import "myserver/api/base"
 
 const (
 	HEADLEN = 4

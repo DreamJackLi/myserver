@@ -1,8 +1,8 @@
 package empdb
 
 import (
-	"robot-server/api/apiarea"
-	"robot-server/internal/core/coredb"
+	"myserver/api/apiarea"
+	"myserver/internal/core/coredb"
 )
 
 func GetProvinces(in *apiarea.Req) []*apiarea.Province {

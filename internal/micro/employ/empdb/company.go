@@ -3,9 +3,9 @@ package empdb
 import (
 	"bytes"
 	"fmt"
-	"robot-server/api/apicompany"
-	"robot-server/internal/core/coredb"
-	"robot-server/tool"
+	"myserver/api/apicompany"
+	"myserver/internal/core/coredb"
+	"myserver/tool"
 	"strings"
 	"time"
 )

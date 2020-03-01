@@ -1,8 +1,8 @@
 package router
 
 import (
-	"robot-server/api/base"
-	"robot-server/internal/core/message"
+	"myserver/api/base"
+	"myserver/internal/core/message"
 )
 
 type FuncHandler func(*message.Message) *message.Message

@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
+	"myserver/api/apiemployee"
+	"myserver/api/base"
+	"myserver/internal/core/message"
 	"net/url"
-	"robot-server/api/apiemployee"
-	"robot-server/api/base"
-	"robot-server/internal/core/message"
 	"sync"
 	"time"
 
@@ -18,7 +18,7 @@ var servers []string = []string{"ws://errand.kuaixg.cn/ws"}
 var total int32
 
 func main() {
-	u := url.URL{Scheme: "ws", Host: "10.10.2.84:8080", Path: "/begin"}
+	u := url.URL{Scheme: "ws", Host: "192.168.3.38:8080", Path: "/begin"}
 	// u := url.URL{Scheme: "ws", Host: "errand.kuaixg.cn", Path: "/begin"}
 	fmt.Println(u.String())
 	c, _, err := websocket.DefaultDialer.Dial(u.String(), nil)

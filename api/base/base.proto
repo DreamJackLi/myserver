@@ -20,6 +20,14 @@ message Msg {
 	bytes Data = 2;
 }
 
+message HeartReq{
+	Head head = 1;
+	int64 update_time = 2;
+}
+
+message HeartRes{
+	int64 update_time = 1;
+}
 
 enum Api {
 	Empty = 0;
@@ -53,6 +61,7 @@ enum Api {
 	GetEmployeeHealthRecordListByCompanyId = 28;
 	ExportFinish = 29;
 	Export = 30;
+	Heart = 31;
 }
 
 

@@ -2,10 +2,10 @@ package conn
 
 import (
 	"fmt"
-	"robot-server/api/base"
-	"robot-server/internal/core/message"
-	"robot-server/internal/gateway/server/router"
-	"robot-server/tool/uid"
+	"myserver/api/base"
+	"myserver/internal/core/message"
+	"myserver/internal/gateway/server/router"
+	"myserver/tool/uid"
 	"sync"
 	"sync/atomic"
 	"time"
@@ -33,6 +33,8 @@ type Conn struct {
 	CheckTime time.Duration
 	// 0 表示未开启 1表示开启 2表示关闭
 	statues int32
+
+	HeartTime int64
 }
 
 func NewConn(wg *sync.WaitGroup, wbConn *websocket.Conn, forwardFor string) *Conn {
@@ -52,6 +54,7 @@ func NewConn(wg *sync.WaitGroup, wbConn *websocket.Conn, forwardFor string) *Con
 		// 这里后面加心跳
 		CheckTime: 5,
 		statues:   0,
+		HeartTime: 0,
 	}
 }
 
@@ -76,6 +79,22 @@ func (c *Conn) Close() {
 	close(c.isStop)
 }
 
+func (c *Conn) handMsg() {
+
+	for {
+		select {
+		case <-c.isStop:
+			c.wg.Done()
+			return
+		case m, ok := <-c.readChan:
+			if ok {
+				c.readMsg_v2(m)
+			}
+
+		}
+	}
+}
+
 func (c *Conn) read() {
 	for {
 		select {
@@ -91,8 +110,8 @@ func (c *Conn) read() {
 				c.wg.Done()
 				return
 			}
-
-			c.readMsg_v2(b)
+			c.readChan <- b
+			// c.readMsg_v2(b)
 		}
 
 	}

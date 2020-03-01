@@ -2,10 +2,10 @@ package service
 
 import (
 	"context"
-	"robot-server/api/apiarea"
-	"robot-server/api/base"
-	"robot-server/internal/core/errorcode"
-	"robot-server/internal/micro/employ/empdb"
+	"myserver/api/apiarea"
+	"myserver/api/base"
+	"myserver/internal/core/errorcode"
+	"myserver/internal/micro/employ/empdb"
 )
 
 type AreaServer struct{}

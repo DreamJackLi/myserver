@@ -2,12 +2,13 @@ package tool
 
 import (
 	"fmt"
-	"github.com/jinzhu/gorm"
 	"math/rand"
-	"robot-server/api/apicompany"
-	"robot-server/api/apiemployee"
+	"myserver/api/apicompany"
+	"myserver/api/apiemployee"
 	"testing"
 	"time"
+
+	"github.com/jinzhu/gorm"
 )
 
 var arr [3500]rune

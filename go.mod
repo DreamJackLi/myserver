@@ -1,4 +1,4 @@
-module robot-server
+module myserver
 
 go 1.13
 

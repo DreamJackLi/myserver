@@ -1,14 +1,14 @@
 package employ
 
 import (
-	"robot-server/config"
-	"robot-server/internal/core/regist"
-	"robot-server/internal/micro/employ/service"
+	"myserver/config"
+	"myserver/internal/core/regist"
+	"myserver/internal/micro/employ/service"
 
-	"robot-server/api/apiarea"
-	"robot-server/api/apicompany"
-	"robot-server/api/apiemployee"
-	"robot-server/api/apiexport"
+	"myserver/api/apiarea"
+	"myserver/api/apicompany"
+	"myserver/api/apiemployee"
+	"myserver/api/apiexport"
 
 	"google.golang.org/grpc"
 )

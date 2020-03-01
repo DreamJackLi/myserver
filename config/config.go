@@ -26,26 +26,32 @@ type qiniuCfg struct {
 	SecretKey string `yaml:"secretKey"`
 }
 
-type serverCfg struct {
+type serviceCfg struct {
 	Port       int16  `yaml:"port"`
 	ServerName string `yaml:"servername"`
 	DataBase   string `yaml:"database"`
+}
+
+type connCfg struct {
+	heartTime int32 `yaml:"hearttime"`
+	checkTime int32 `yaml:"checktime"`
 }
 
 // 配置
 type Config struct {
 	Mysql mysql `yaml:"mysql"`
 	// Register  bool  `yaml:"register"`
-	ServerCfg   map[string]serverCfg
+	ServerCfg   map[string]serviceCfg
 	serNameLock *sync.Mutex
 	Qiniu       qiniuCfg
+	ConnCfg     connCfg
 }
 
 var cfg *Config
 
 func init() {
 	cfg = &Config{
-		ServerCfg:   make(map[string]serverCfg),
+		ServerCfg:   make(map[string]serviceCfg),
 		serNameLock: &sync.Mutex{},
 	}
 	loadDefault("default")
@@ -58,9 +64,9 @@ func getFileName() string {
 		file = "config_production.yaml"
 	}
 
-	// file = "D:/work_space/v5-learning/merge/src/robot-server/config_test.yaml"
+	// file = "D:/work_space/v5-learning/merge/src/myserver/config_test.yaml"
 	// file = os.Getenv("GOPATH") + "/" + file
-	file = "/home/m/go/src/robot-server/config_test.yaml"
+	file = "/Users/m/go/src/myserver/config_test.yaml"
 	return file
 }
 
@@ -73,6 +79,9 @@ func loadDefault(cfgName string) {
 
 	if cfg.Qiniu.AccessKey == "" {
 		cfg.Qiniu = temp["default"].Qiniu
+	}
+	if cfg.ConnCfg.checkTime == 0 {
+		cfg.ConnCfg = temp["default"].ConnCfg
 	}
 
 }
@@ -92,14 +101,14 @@ func LoadService(serverName string) {
 	printConfig()
 }
 
-func readServerCfg(file, serverName string) map[string]serverCfg {
+func readServerCfg(file, serverName string) map[string]serviceCfg {
 	content, err := ioutil.ReadFile(file)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(-1)
 	}
 
-	var temp map[string]serverCfg
+	var temp map[string]serviceCfg
 	err = yaml.Unmarshal(content, &temp)
 	if err != nil {
 		fmt.Println("yaml unmarshal:", err)

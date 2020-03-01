@@ -3,11 +3,11 @@ package service
 import (
 	"context"
 	"fmt"
-	"robot-server/api/apicompany"
-	"robot-server/api/base"
-	"robot-server/internal/core/errorcode"
-	"robot-server/internal/micro/employ/empdb"
-	"robot-server/tool"
+	"myserver/api/apicompany"
+	"myserver/api/base"
+	"myserver/internal/core/errorcode"
+	"myserver/internal/micro/employ/empdb"
+	"myserver/tool"
 	"time"
 )
 

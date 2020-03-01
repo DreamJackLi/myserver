@@ -3,10 +3,10 @@ package router
 import (
 	"context"
 	"fmt"
-	"robot-server/api/apiarea"
-	"robot-server/api/base"
-	"robot-server/internal/core/message"
-	"robot-server/internal/core/regist"
+	"myserver/api/apiarea"
+	"myserver/api/base"
+	"myserver/internal/core/message"
+	"myserver/internal/core/regist"
 	"time"
 )
 

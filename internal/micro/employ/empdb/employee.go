@@ -4,9 +4,9 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
-	"robot-server/api/apiemployee"
-	"robot-server/internal/core/coredb"
-	"robot-server/tool"
+	"myserver/api/apiemployee"
+	"myserver/internal/core/coredb"
+	"myserver/tool"
 
 	"github.com/jinzhu/gorm"
 )

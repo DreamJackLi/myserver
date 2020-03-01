@@ -2,7 +2,7 @@ package coredb
 
 import (
 	"fmt"
-	"robot-server/config"
+	"myserver/config"
 	"time"
 
 	"github.com/jinzhu/gorm"

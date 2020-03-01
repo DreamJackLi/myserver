@@ -16,3 +16,6 @@ default :
     accessKey: "5bJMhEn4DSLNAJT-JiIw9rhmk8coOxMpVwGZoCRc"
     bucket: "images"
     secretKey: "mSDqSTWRySYhEatdMuGlNGKFQLhYD4Ue97XYiSD3"
+  conn :
+    hearttime: 3
+    checktime: 5

@@ -2,7 +2,7 @@ syntax = "proto3" ;
 
 package apicompany;
 
-import "robot-server/api/base/base.proto";
+import "myserver/api/base/base.proto";
 
 
 service Company{

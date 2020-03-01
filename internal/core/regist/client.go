@@ -3,7 +3,7 @@ package regist
 import (
 	"fmt"
 	"log"
-	"robot-server/config"
+	"myserver/config"
 	"sync"
 
 	"google.golang.org/grpc"

@@ -2,8 +2,8 @@ package empdb
 
 import (
 	"database/sql"
-	"robot-server/api/apiexport"
-	"robot-server/internal/core/coredb"
+	"myserver/api/apiexport"
+	"myserver/internal/core/coredb"
 )
 
 func AddExportRecord(exportRecord *apiexport.ExportRecord) error {

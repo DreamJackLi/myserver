@@ -3,12 +3,12 @@ package service
 import (
 	"context"
 	"fmt"
-	"robot-server/api/apiemployee"
-	"robot-server/api/base"
-	"robot-server/config"
-	"robot-server/internal/core/errorcode"
-	"robot-server/internal/micro/employ/empdb"
-	"robot-server/tool"
+	"myserver/api/apiemployee"
+	"myserver/api/base"
+	"myserver/config"
+	"myserver/internal/core/errorcode"
+	"myserver/internal/micro/employ/empdb"
+	"myserver/tool"
 	"time"
 
 	"github.com/qiniu/api.v7/auth/qbox"
@@ -43,22 +43,24 @@ func (e *EmployServer) WebLogin(ctx context.Context, in *apiemployee.WebLoginReq
 		fmt.Println(in.Pwd)
 		return &apiemployee.WebLoginRes{Base: &base.BaseRes{ErrorCode: errorcode.ParameterError}}, nil
 	}
-	info, err := empdb.WebLogin(in.UserName)
+	// info, err := empdb.WebLogin(in.UserName)
 
-	if err != nil {
+	// if err != nil {
 
-		return &apiemployee.WebLoginRes{Base: &base.BaseRes{ErrorCode: errorcode.FindError}}, nil
-	}
+	//   return &apiemployee.WebLoginRes{Base: &base.BaseRes{ErrorCode: errorcode.FindError}}, nil
+	// }
 
-	if info.UserPwd != in.Pwd {
-		return &apiemployee.WebLoginRes{Base: &base.BaseRes{ErrorCode: errorcode.PwdError}}, nil
-	}
+	// if info.UserPwd != in.Pwd {
+	//   return &apiemployee.WebLoginRes{Base: &base.BaseRes{ErrorCode: errorcode.PwdError}}, nil
+	// }
 
 	return &apiemployee.WebLoginRes{
 		Base: &base.BaseRes{
 			ErrorCode: errorcode.Succeed,
 		},
-		Info: info,
+		Info: &apiemployee.WebLoginInfo{
+			UserId: "qweqw",
+		},
 	}, nil
 }
 

@@ -2,10 +2,10 @@ package server
 
 import (
 	"fmt"
+	"myserver/api/base"
+	"myserver/internal/core/conn"
+	"myserver/internal/core/message"
 	"net/http"
-	"robot-server/api/base"
-	"robot-server/internal/core/conn"
-	"robot-server/internal/core/message"
 )
 
 func buildConn(w http.ResponseWriter, r *http.Request) {

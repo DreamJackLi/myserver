@@ -2,26 +2,24 @@ package main
 
 import (
 	"fmt"
+	"myserver/config"
 	"os"
-	"robot-server/config"
 
-	"robot-server/internal/core/coredb"
-	"robot-server/internal/core/regist"
-	"robot-server/internal/core/sig"
-	"robot-server/internal/gateway/server"
-	_ "robot-server/internal/micro/employ"
+	"myserver/internal/core/regist"
+	"myserver/internal/core/sig"
+	"myserver/internal/gateway/server"
+	_ "myserver/internal/micro/employ"
 	"sync"
 )
 
 func main() {
 	wg := &sync.WaitGroup{}
 	registServer(wg)
-	err := coredb.Init()
-
-	if err != nil {
-		fmt.Println("cmd main coredb.Init Error ", err)
-		return
-	}
+	// err := coredb.Init()
+	// if err != nil {
+	//   fmt.Println("cmd main coredb.Init Error ", err)
+	//   return
+	// }
 	wg.Add(1)
 	go sig.Signal(func(os.Signal) {
 		fmt.Println("Close signal Come ")

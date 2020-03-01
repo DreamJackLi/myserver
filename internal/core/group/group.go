@@ -1,7 +1,7 @@
 package group
 
 import (
-	"robot-server/internal/core/conn"
+	"myserver/internal/core/conn"
 	"sync"
 )
 
