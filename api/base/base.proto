@@ -26,7 +26,7 @@ message HeartReq{
 }
 
 message HeartRes{
-	int64 update_time = 1;
+	BaseRes base = 1;	
 }
 
 enum Api {

@@ -33,8 +33,8 @@ type serviceCfg struct {
 }
 
 type connCfg struct {
-	heartTime int32 `yaml:"hearttime"`
-	checkTime int32 `yaml:"checktime"`
+	HeartTime int32 `yaml:"hearttime"`
+	CheckTime int32 `yaml:"checktime"`
 }
 
 // 配置
@@ -80,7 +80,7 @@ func loadDefault(cfgName string) {
 	if cfg.Qiniu.AccessKey == "" {
 		cfg.Qiniu = temp["default"].Qiniu
 	}
-	if cfg.ConnCfg.checkTime == 0 {
+	if cfg.ConnCfg.CheckTime == 0 {
 		cfg.ConnCfg = temp["default"].ConnCfg
 	}
 

@@ -3,6 +3,7 @@ package conn
 import (
 	"fmt"
 	"myserver/api/base"
+	"myserver/config"
 	"myserver/internal/core/message"
 	"myserver/internal/gateway/server/router"
 	"myserver/tool/uid"
@@ -59,8 +60,8 @@ func NewConn(wg *sync.WaitGroup, wbConn *websocket.Conn, forwardFor string) *Con
 }
 
 func (c *Conn) Start() {
-	go c.read()
-	go c.write_v2()
+	go c.workProcc()
+	go c.handMsg()
 	c.wg.Add(2)
 	atomic.AddInt32(&c.statues, 1)
 	fmt.Println("Conn is Start ConnID is ", c.ConnID)
@@ -80,7 +81,6 @@ func (c *Conn) Close() {
 }
 
 func (c *Conn) handMsg() {
-
 	for {
 		select {
 		case <-c.isStop:
@@ -95,12 +95,25 @@ func (c *Conn) handMsg() {
 	}
 }
 
-func (c *Conn) read() {
+func (c *Conn) workProcc() {
+	heart := time.NewTicker(config.Get().ConnCfg.CheckTime * time.Second)
 	for {
 		select {
 		case <-c.isStop:
+			heart.Stop()
 			c.wg.Done()
 			return
+		case <-heart.C:
+
+		case m, ok := <-c.writeBuffer_v2:
+			if ok {
+				c.writeMsg_v2(m)
+			} else {
+				c.Close()
+				DeleteConnByID(c)
+				c.wg.Done()
+				return
+			}
 		default:
 			_, b, err := c.wbConn.ReadMessage()
 			if err != nil {
@@ -203,25 +216,6 @@ func (c *Conn) writeMsg_v2(m *base.Msg) {
 //     }
 //   }
 // }
-
-func (c *Conn) write_v2() {
-	for {
-		select {
-		case <-c.isStop:
-			c.wg.Done()
-			return
-		case m, ok := <-c.writeBuffer_v2:
-			if ok {
-				c.writeMsg_v2(m)
-			} else {
-				c.Close()
-				DeleteConnByID(c)
-				c.wg.Done()
-				return
-			}
-		}
-	}
-}
 
 func (c *Conn) WriteMessage(m *message.Message) {
 	select {
