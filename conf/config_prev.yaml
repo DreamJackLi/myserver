@@ -6,7 +6,7 @@ default :
   mysql:
     maxIdleConns: 700
     maxOpenConns: 700
-    port: 3306
+    port: 3307
     host: "rm-2ze0624x75gk25025.mysql.rds.aliyuncs.com"
     username: "xiaoka"
     password: "Xiaoka520"

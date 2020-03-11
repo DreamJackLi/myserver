@@ -1,0 +1,15 @@
+syntax = "proto3" ; 
+
+package rpc;
+
+service Hello {
+	rpc HelloWrold(HelloWroldReq) returns(HelloWroldRes);
+}
+
+message HelloWroldReq{
+	int64 name = 1;
+}
+
+message HelloWroldRes{
+	string name = 2;
+}

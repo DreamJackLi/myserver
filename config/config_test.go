@@ -1,7 +1,17 @@
 package config
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 func TestConfig(t *testing.T) {
-	LoadService("EMPLOY")
+	var temp *int
+
+	defer func(t *int) {
+		fmt.Println(*t)
+	}(temp)
+
+	var n = 12
+	temp = &n
 }
