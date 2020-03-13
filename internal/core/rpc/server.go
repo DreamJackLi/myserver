@@ -223,3 +223,18 @@ func NewServer(conf *ServerCfg, opt ...grpc.ServerOption) *Server {
 	s.Use(s.recovery(), s.handle())
 	return s
 }
+
+func (s *Server) ShutDown(ctx context.Context) (err error) {
+	ch := make(chan struct{})
+	go func() {
+		s.server.GracefulStop()
+		close(ch)
+	}()
+	select {
+	case <-ctx.Done():
+		s.server.Stop()
+		err = ctx.Err()
+	case <-ch:
+	}
+	return
+}

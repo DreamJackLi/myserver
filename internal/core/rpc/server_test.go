@@ -3,6 +3,7 @@ package rpc
 import (
 	context "context"
 	fmt "fmt"
+	"net/url"
 	"testing"
 	"time"
 
@@ -45,10 +46,21 @@ func runClient() {
 }
 
 func TestRpc(t *testing.T) {
-	runServer()
+	// runServer()
 
-	time.Sleep(3 * time.Second)
-	runClient()
+	// time.Sleep(3 * time.Second)
+	// runClient()
 
-	select {}
+	// select {}
+	u, err := url.Parse("127.0.0.1:9000")
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	v := u.Query()
+
+	fmt.Println(v)
+
 }
