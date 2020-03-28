@@ -7,7 +7,6 @@ import (
 	"time"
 
 	grpc "google.golang.org/grpc"
-	"google.golang.org/grpc/keepalive"
 )
 
 var (
@@ -121,16 +120,16 @@ func (c *Client) Dial(ctx context.Context, target string, opts ...grpc.DialOptio
 }
 
 func (c *Client) dial(ctx context.Context, target string, opts ...grpc.DialOption) (conn *grpc.ClientConn, err error) {
-	dialOptions := c.cloneOpts()
+	// dialOptions := c.cloneOpts()
 
-	if !c.conf.NonBlock {
-		dialOptions = append(dialOptions, grpc.WithBlock())
-	}
+	// if !c.conf.NonBlock {
+	// 	dialOptions = append(dialOptions, grpc.WithBlock())
+	// }
 
-	dialOptions = append(dialOptions, grpc.WithKeepaliveParams(keepalive.ClientParameters{
-		Time:                time.Duration(c.conf.KeepAliveInterval),
-		Timeout:             time.Duration(c.conf.KeepAliveTimeout),
-		PermitWithoutStream: !c.conf.KeepAliveWithoutStream,
-	}))
-
+	// dialOptions = append(dialOptions, grpc.WithKeepaliveParams(keepalive.ClientParameters{
+	// 	Time:                time.Duration(c.conf.KeepAliveInterval),
+	// 	Timeout:             time.Duration(c.conf.KeepAliveTimeout),
+	// 	PermitWithoutStream: !c.conf.KeepAliveWithoutStream,
+	// }))
+	return nil, nil
 }

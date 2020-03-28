@@ -96,7 +96,7 @@ func (c *Conn) handMsg() {
 }
 
 func (c *Conn) workProcc() {
-	heart := time.NewTicker(config.Get().ConnCfg.CheckTime * time.Second)
+	heart := time.NewTicker(time.Duration(config.Get().ConnCfg.CheckTime) * time.Second)
 	for {
 		select {
 		case <-c.isStop:
