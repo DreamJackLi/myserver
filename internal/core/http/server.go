@@ -109,6 +109,7 @@ func (engine *Engine) SetConfig(conf *ServerConfig) (err error) {
 }
 
 func (engine *Engine) addRoute(method, path string, handlers ...HandlerFunc) {
+
 	if path[0] != '/' {
 		panic("path must begin with '/' ")
 	}
