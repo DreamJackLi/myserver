@@ -151,6 +151,7 @@ func message(d map[string]interface{}) string {
 		if isInternalKey(k) {
 			continue
 		}
+		fmt.Println("k ", k)
 		s = append(s, fmt.Sprintf("%s=%v", k, v))
 	}
 	// s = append(s, m)

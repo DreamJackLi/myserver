@@ -1,47 +1,31 @@
 package log
 
 import (
-	"io"
 	"os"
+
+	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
 )
-
-type Config struct {
-	Family string
-	Host   string
-
-	Stdout bool
-
-	Dir            string
-	FileBufferSize int64
-	MaxLogFile     int
-	RotateSize     int64
-
-	Module map[string]int32
-	Filter []string
-}
-
-type Render interface {
-	Render(io.Writer, map[string]interface{}) error
-	RenderString(map[string]interface{}) string
-}
 
 var (
-	h Handler
-	c *Config
+	sugarLogger *zap.SugaredLogger
+	zapConfig   *zap.Config
 )
 
-func init() {
-	host, _ := os.Hostname()
+func InitLog() {
+	core := zapcore.NewCore(getEncoder(), os.Stdout, zapcore.DebugLevel)
+	logger := zap.New(core)
+	sugarLogger = logger.Sugar()
+	sugarLogger = sugarLogger.With(zap.String("hello", "11111"))
+	sugarLogger.With(zap.String("hello1", "11111"))
+	sugarLogger.With(zap.String("hello2", "11111"))
+	sugarLogger.Info("hello world")
 
-	c = &Config{
-		Host: host,
-	}
-
-	h = newHandler([]string{})
 }
 
-// func errIncr(lv Level , source string) {
-//   if lv == _errorLevel {
-
-//   }
-// }
+func getEncoder() zapcore.Encoder {
+	encoderConfig := zap.NewProductionEncoderConfig()
+	encoderConfig.EncodeTime = zapcore.ISO8601TimeEncoder
+	encoderConfig.EncodeLevel = zapcore.CapitalLevelEncoder
+	return zapcore.NewConsoleEncoder(encoderConfig)
+}

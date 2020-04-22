@@ -26,3 +26,11 @@ func (h *StdoutHandler) Log(ctx context.Context, lv Level, args ...D) {
 
 	os.Stderr.Write([]byte("\n"))
 }
+
+func (h *StdoutHandler) SetFormat(format string) {
+
+}
+
+func (h *StdoutHandler) Close() error {
+	return nil
+}

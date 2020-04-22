@@ -11,7 +11,7 @@ var (
 )
 
 func init() {
-	flag.StringVar(&confPath, "conf", "", "default config path")
+	flag.StringVar(&confPath, "../conf/", "", "default config path")
 }
 
 func Init(arg ...interface{}) (err error) {
